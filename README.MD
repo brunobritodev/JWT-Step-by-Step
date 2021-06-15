@@ -1,5 +1,5 @@
 # .NET - Console APP criando um JWT passo a passo
-<img src="https://github.com/brunohbrito/JWT-Step-by-Step/blob/master/capa.png?raw=true" width="480" />
+<img src="https://github.com/brunohbrito/JWT-Step-by-Step/blob/main/capa.png?raw=true" width="480" />
 
 Pre reqs
 
