@@ -69,6 +69,19 @@ namespace JOSE.Algoritmos
             return JsonSerializer.Serialize(jsonWebKey, new JsonSerializerOptions() { WriteIndented = true, IgnoreNullValues = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
         }
 
+        public JsonWebKey PublicKeyJsonWebKey()
+        {
+            var jsonWebKey = JsonSerializer.Deserialize<JsonWebKey>(File.ReadAllText(MyJwkLocation()));
+
+            return new JsonWebKey(JsonSerializer.Serialize(new PublicJsonWebKey(jsonWebKey), new JsonSerializerOptions() { IgnoreNullValues = true }));
+        }
+
+        public JsonWebKey PrivateJsonWebKey()
+        {
+            return JsonSerializer.Deserialize<JsonWebKey>(File.ReadAllText(MyJwkLocation()));
+        }
+
+
         private JsonWebKey Get()
         {
             if (File.Exists(MyJwkLocation()))

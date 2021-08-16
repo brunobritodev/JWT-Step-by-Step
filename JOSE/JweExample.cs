@@ -1,22 +1,20 @@
-﻿using Microsoft.IdentityModel.JsonWebTokens;
+﻿using JOSE.Algoritmos;
+using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text.Json;
 
 namespace JOSE
 {
     class JweExample
     {
+        private static readonly RSASignature Assinatura = new RSASignature();
         public static void Run()
         {
-            var key = new RsaSecurityKey(RSA.Create(2048))
-            {
-                KeyId = Guid.NewGuid().ToString()
-            };
-            var jweKey = new EncryptingCredentials(key, SecurityAlgorithms.RsaOAEP, SecurityAlgorithms.Aes128CbcHmacSha256);
+            // Create with PublicKey
+            var jweKey = new EncryptingCredentials(Assinatura.PublicKeyJsonWebKey(), SecurityAlgorithms.RsaOAEP, SecurityAlgorithms.Aes128CbcHmacSha256);
             var payloadRepresentation = new List<Claim>()
             {
                 new( "claim1", "10" ),
@@ -50,14 +48,14 @@ namespace JOSE
             Console.WriteLine(jwe);
             Console.ResetColor();
 
-
+            // Validate with Private Key
             var result = handler.ValidateToken(jwe,
                 new TokenValidationParameters
                 {
                     ValidIssuer = "me",
                     ValidAudience = "you",
                     RequireSignedTokens = false,
-                    TokenDecryptionKey = jweKey.Key
+                    TokenDecryptionKey = Assinatura.PrivateJsonWebKey()
                 });
             var claims = JsonSerializer.Serialize(result.Claims, new JsonSerializerOptions() { WriteIndented = true });
 
@@ -67,5 +65,6 @@ namespace JOSE
             Console.WriteLine(claims);
             Console.ResetColor();
         }
+
     }
 }
