@@ -1,10 +1,10 @@
 ﻿using Microsoft.IdentityModel.Tokens;
-using NetDevPack.Security.JwtSigningCredentials.Model;
 using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using NetDevPack.Security.Jwt.Model;
 
 namespace JOSE
 {

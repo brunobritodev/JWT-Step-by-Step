@@ -1,16 +1,8 @@
 ﻿using System;
+using JOSE;
 
-namespace JOSE
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("==================================== JWS EXAMPLE ====================================");
-            JwsExample.Run();
-            Console.WriteLine();
-            Console.WriteLine("==================================== JWE EXAMPLE ====================================");
-            JweExample.Run();
-        }
-    }
-}
+Console.WriteLine("==================================== JWS EXAMPLE ====================================");
+JwsExample.Run();
+Console.WriteLine();
+Console.WriteLine("==================================== JWE EXAMPLE ====================================");
+JweExample.Run();
